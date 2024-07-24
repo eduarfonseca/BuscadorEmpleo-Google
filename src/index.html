@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Empleos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+        :root {
+            --blue: #4285F4;
+            --red: #EA4335;
+            --yellow: #FBBC05;
+            --green: #34A853;
+            --background: #f8f9fa;
+            --text: #202124;
+            --card: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo img {
+            width: 272px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            background-color: var(--card);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+        }
+
+        button {
+            padding: 0 1.5rem;
+            font-size: 1rem;
+            color: var(--text);
+            background-color: var(--card);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f1f3f4;
+        }
+
+        .job-list {
+            list-style-type: none;
+        }
+
+        .job-item {
+            background-color: var(--card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .job-item:hover {
+            box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            padding: 0.25rem 0.75rem;
+            background-color: #f1f3f4;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            color: var(--text);
+        }
+        details {
+        margin-top: 1rem;
+    }
+
+    summary {
+        cursor: pointer;
+        color: var(--blue);
+        font-weight: 500;
+    }
+
+    details p {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo fade-in-up">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google Logo">
+            <h3>Buscador de empleos</h3>
+        </div>
+        
+        <div class="search-container fade-in-up">
+            <input type="text" id="search-input" placeholder="Busca empleos, empresas o ubicaciones">
+            <button id="search-button">
+                <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <ul id="job-list" class="job-list">
+            <!-- Los resultados de la búsqueda se insertarán aquí -->
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const jobList = document.getElementById('job-list');
+    
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+    
+            function performSearch() {
+                const query = searchInput.value;
+                fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: query }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    jobList.innerHTML = ''; // Limpiar resultados anteriores
+                    data.forEach((job, index) => {
+                        const jobItem = document.createElement('li');
+                        jobItem.className = 'job-item fade-in-up';
+                        jobItem.style.animationDelay = `${index * 0.1}s`;
+                        
+                        let content = `
+                            <h3 class="job-title">${job.title}</h3>
+                            <p class="job-company">${job.category} - ${job.location}</p>
+                            <div class="chips">
+                                <span class="chip">Categoría: ${job.category}</span>
+                            </div>
+                            <details>
+                                <summary>Más información</summary>
+                                <p><strong>Responsabilidades:</strong> ${job.responsibilities}</p>
+                                <p><strong>Calificaciones mínimas:</strong> ${job.minimum_qualifications}</p>
+                                <p><strong>Calificaciones preferidas:</strong> ${job.preferred_qualifications}</p>
+                            </details>
+                        `;
+    
+                        jobItem.innerHTML = content;
+                        jobList.appendChild(jobItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+</html>

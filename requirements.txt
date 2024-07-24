@@ -1,0 +1,12 @@
+# Dev environment
+pip
+autopep8
+
+# App
+flask
+pymongo
+mistralai
+python-dotenv
+
+# Additional dependencies
+requests
