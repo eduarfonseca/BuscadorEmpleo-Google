@@ -46,7 +46,7 @@ El frontend es una página HTML simple con CSS y JavaScript. Proporciona un camp
 
 Así es como se ve la interfaz de usuario del buscador de empleos:
 
-![Interfaz del Buscador de Empleos](img/interfaz_screenshot.png)
+![Interfaz del Buscador de Empleos](img/capturaApp.png)
 
 La interfaz incluye:
 - Un logo de Google en la parte superior
