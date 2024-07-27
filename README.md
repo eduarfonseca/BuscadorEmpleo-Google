@@ -42,6 +42,18 @@ La aplicación se iniciará en el puerto 80 por defecto, o en el puerto especifi
 
 El frontend es una página HTML simple con CSS y JavaScript. Proporciona un campo de búsqueda y muestra los resultados en formato de lista.
 
+### Interfaz de usuario
+
+Así es como se ve la interfaz de usuario del buscador de empleos:
+
+![Interfaz del Buscador de Empleos](img/interfaz_screenshot.png)
+
+La interfaz incluye:
+- Un logo de Google en la parte superior
+- Un campo de búsqueda donde los usuarios pueden introducir sus consultas
+- Una lista de resultados que muestra las ofertas de trabajo relevantes
+- Cada resultado incluye el título del trabajo, la categoría, la ubicación y detalles adicionales que se pueden expandir
+
 ## Base de Datos
 
 El proyecto utiliza MongoDB para almacenar las ofertas de trabajo. Cada oferta incluye:
