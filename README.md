@@ -20,7 +20,7 @@ Dependencias de desarrollo:
 
 ## Ejecución de la Aplicación
 
-Para ejecutar la aplicación, ejecuta: main.py
+Para ejecutar la aplicación, ejecuta: main.py.
 La aplicación se iniciará en el puerto 80 por defecto, o en el puerto especificado por la variable de entorno PORT.
 
 ## Cómo Funciona
