@@ -1,7 +1,54 @@
-# Flask Web App Starter
+# Buscador de Empleos de Google
 
-A Flask starter template as per [these docs](https://flask.palletsprojects.com/en/3.0.x/quickstart/#a-minimal-application).
+Este proyecto es una aplicación web que permite a los usuarios buscar ofertas de trabajo de Google utilizando consultas en lenguaje natural. Utiliza Flask para el backend, MongoDB para el almacenamiento de datos y MistralAI para el procesamiento del lenguaje natural y la generación de embeddings.
 
-## Getting Started
+## Configuración
 
-Previews should run automatically when starting a workspace.
+1. Clona el repositorio
+2. Instala las dependencias requeridas: pip install -r requirements.txt
+
+3. Configura tu cadena de conexión de MongoDB en `main.py`
+4. Establece tu clave API de MistralAI como una variable de entorno o prepárate para ingresarla cuando se te solicite
+
+## Dependencias
+
+- Flask: Framework web
+- PyMongo: Driver de MongoDB para Python
+- MistralAI: Procesamiento de lenguaje natural
+- python-dotenv: Gestión de variables de entorno
+- requests: Biblioteca HTTP para Python
+
+Dependencias de desarrollo:
+- autopep8: Formateador de código
+
+## Ejecución de la Aplicación
+
+Para ejecutar la aplicación, ejecuta: main.py
+La aplicación se iniciará en el puerto 80 por defecto, o en el puerto especificado por la variable de entorno PORT.
+
+## Cómo Funciona
+
+1. El frontend envía una consulta de búsqueda al endpoint `/search`.
+2. El backend utiliza MistralAI para generar embeddings para la consulta de búsqueda.
+3. Estos embeddings se utilizan para realizar una búsqueda vectorial en MongoDB.
+4. Las ofertas de trabajo más relevantes se devuelven al frontend y se muestran al usuario.
+
+## Endpoints de la API
+
+- GET `/`: Sirve la página HTML principal
+- POST `/search`: Acepta una carga útil JSON con un campo `query` y devuelve las ofertas de trabajo relevantes
+
+## Frontend
+
+El frontend es una página HTML simple con CSS y JavaScript. Proporciona un campo de búsqueda y muestra los resultados en formato de lista.
+
+## Base de Datos
+
+El proyecto utiliza MongoDB para almacenar las ofertas de trabajo. Cada oferta incluye:
+
+- Título
+- Categoría
+- Ubicación
+- Responsabilidades
+- Calificaciones Mínimas
+- Calificaciones Preferidas
