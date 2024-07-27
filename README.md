@@ -7,9 +7,6 @@ Este proyecto es una aplicación web que permite a los usuarios buscar ofertas d
 1. Clona el repositorio
 2. Instala las dependencias requeridas: pip install -r requirements.txt
 
-3. Configura tu cadena de conexión de MongoDB en `main.py`
-4. Establece tu clave API de MistralAI como una variable de entorno o prepárate para ingresarla cuando se te solicite
-
 ## Dependencias
 
 - Flask: Framework web
